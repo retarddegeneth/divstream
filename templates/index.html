@@ -1,0 +1,158 @@
+<!doctype html>
+<title>div-router — Robinhood Chain</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+:root{--bg:#030506;--panel:#0a0f0d;--accent:#CCFF00;--accent2:#E0FF70;--muted:#6e8a20;--text:#d4f0a0;--border:#2a4510;--err:#ff4d6a;--warn:#f2b518;--ok:#3fb950;}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:"Courier New",Courier,monospace;font-size:15px;line-height:1.55}
+.wrap{max-width:1140px;margin:0 auto;padding:22px}
+.term{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:14px;position:relative;box-shadow:0 0 0 1px #0f1f18 inset}
+.term::before{content:"";position:absolute;top:0;left:0;right:0;height:28px;background:#0e1a16;border-bottom:1px solid var(--border);border-radius:8px 8px 0 0}
+.term::after{content:"● ● ●";position:absolute;top:5px;left:12px;color:#2a5a4a;font-size:11px;letter-spacing:2px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.brand img{height:44px;width:44px;image-rendering:pixelated;filter:drop-shadow(0 0 8px rgba(204,255,0,.45))}
+.prompt{color:var(--accent);font-weight:700}
+.cmd{color:var(--accent2)}
+.bright{color:#fff;text-shadow:0 0 6px rgba(204,255,0,.25)}
+.dim{color:var(--muted)}
+.err{color:var(--err)}
+.warn{color:var(--warn)}
+.ok{color:var(--ok)}
+a{color:var(--accent2);text-decoration:underline}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:960px){.grid{grid-template-columns:380px 1fr}}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px}
+.banner{background:#0a1f08;border:1px solid #3f6a1a;border-radius:10px;padding:14px;margin-bottom:16px;color:var(--text)}
+.banner .ascii{color:var(--accent);font-weight:700;white-space:pre;font-size:12px;line-height:1.2}
+label{display:block;font-size:12px;color:var(--muted);margin:6px 0 4px;text-transform:uppercase;letter-spacing:.15em}
+input[type=text],input[type=url],input[type=number],input[type=date],input[type=datetime-local]{width:100%;background:#050a08;color:var(--accent2);border:1px solid var(--border);border-radius:6px;padding:9px 10px;font-family:inherit;font-size:13px}
+input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(204,255,0,.15)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+button{background:#102a06;color:var(--accent);border:1px solid #3f6a2a;border-radius:8px;padding:9px 14px;font-family:inherit;font-weight:800;cursor:pointer;margin-top:12px;text-transform:uppercase;letter-spacing:.12em}
+button:hover{background:#1a3a10;box-shadow:0 0 0 2px rgba(204,255,0,.25)}
+button.sec{background:#1a1510;color:var(--warn);border-color:#3f2f10}
+button.sec:hover{background:#2a2010}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th,td{text-align:left;padding:9px 6px;border-bottom:1px solid #2a4510}
+th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.15em}
+.rank{font-weight:900;color:var(--accent);font-size:18px;min-width:26px;text-align:center;text-shadow:0 0 6px rgba(204,255,0,.35)}
+.pill{display:inline-block;background:#102a06;border:1px solid #3f6a2a;color:var(--accent);padding:2px 8px;border-radius:999px;font-size:11px;letter-spacing:.1em}
+.blink{animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+</style>
+<div class="wrap">
+  <div class="brand">
+    <img src="/static/div-logo.svg" alt="DivRouter"/>
+    <div>
+      <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">neofetch</span></div>
+      <div class="dim" style="font-size:12px">dividend_stream // robinhood_chain // 4663</div>
+    </div>
+  </div>
+
+  <div class="banner">
+    <div class="ascii">
+ ██████╗ ██╗██████╗ ██╗   ██╗████████╗██╗   ██╗
+██╔════╝██║██╔══██╗██║   ██║╚══██╔══╝██║   ██║
+██║     ██║██████╔╝██║   ██║   ██║   ██║   ██║
+██║     ██║██╔══██╗██║   ██║   ██║   ██║   ██║
+╚██████╗██║██║  ██║╚██████╔╝   ██║   ╚██████╔╝
+ ╚═════╝╚═╝╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ 
+    </div>
+    <div style="margin-top:10px">
+      <span class="bright">>> DIVIDENDS ONCHAIN. INSTANT. 24/7.</span> <span class="blink">_</span>
+    </div>
+    <div class="dim" style="margin-top:6px">stream dividends from tokenized stocks directly to your wallet.</div>
+    <div style="margin-top:8px">
+      <span class="pill">network: robinhood_chain</span>
+      <span class="pill">chain_id: 4663</span>
+      <span class="pill">v:0.1.0</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">create_vault</span></div>
+        <form method="post" action="/" style="margin-top:12px" id="vaultForm">
+          <label>symbol</label>
+          <input name="symbol" placeholder="AAPL, KO, NVDA..." required maxlength="12"/>
+          <label style="margin-top:10px">token address</label>
+          <input name="token_address" placeholder="0x..." required/>
+          <label style="margin-top:10px">mode</label>
+          <select name="mode" style="width:100%;background:#050a08;color:var(--accent2);border:1px solid var(--border);border-radius:6px;padding:9px 10px;font-family:inherit;font-size:13px">
+            <option value="cash">cash — stablecoin to wallet</option>
+            <option value="reinvest">reinvest — buy more token</option>
+            <option value="hedge">hedge — partial conversion</option>
+          </select>
+          <label style="margin-top:10px">shares</label>
+          <input type="number" step="0.0001" name="shares" value="1" min="0.0001"/>
+          <button type="submit">[ open vault ]</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">vaults --all</span></div>
+        <span class="dim" style="font-size:12px">live positions</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th style="width:40px">#</th><th>symbol</th><th>token</th><th>mode</th><th>shares</th><th></th></tr>
+        </thead>
+        <tbody>
+        {% for v in vaults %}
+          <tr>
+            <td class="rank">{{ loop.index }}</td>
+            <td><b>{{ v.symbol }}</b></td>
+            <td class="dim">{{ v.token_address[:8] }}...{{ v.token_address[-4:] }}</td>
+            <td><span class="pill">{{ v.mode }}</span></td>
+            <td>{{ "%.4f"|format(v.shares) }}</td>
+            <td>
+              <form method="post" action="/events" style="margin:0" onsubmit="event.preventDefault(); const s=document.getElementById('ev-sym').value; fetch('/events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbol:s,ex_date:document.getElementById('ev-ex').value,pay_date:document.getElementById('ev-pay').value,amount_per_share:document.getElementById('ev-amt').value})}).then(()=>location.reload())">
+                <input type="hidden" id="ev-sym" value="{{ v.symbol }}"/>
+                <input type="date" id="ev-ex" placeholder="ex-date" style="width:130px;margin-right:4px"/>
+                <input type="date" id="ev-pay" placeholder="pay-date" style="width:130px;margin-right:4px"/>
+                <input type="number" step="0.0001" id="ev-amt" placeholder="amount" style="width:90px;margin-right:4px"/>
+                <button type="submit" class="sec" style="padding:5px 9px;font-size:11px">[ book ]</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="dim" style="text-align:center;padding:18px">no vaults yet. create one above.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">calendar</span></div>
+    <table>
+      <thead>
+        <tr><th>date</th><th>symbol</th><th>ex</th><th>pay</th><th>$/sh</th><th>status</th></tr>
+      </thead>
+      <tbody>
+      {% for e in events %}
+        <tr>
+          <td class="dim">{{ e.ex_date }}</td>
+          <td><b>{{ e.symbol }}</b></td>
+          <td>{{ e.ex_date }}</td>
+          <td>{{ e.pay_date }}</td>
+          <td>{{ "%.2f"|format(e.amount_per_share) }}</td>
+          <td><span class="pill">{{ e.status }}</span></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6" class="dim" style="text-align:center;padding:18px">no dividend events scheduled.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="termline" style="margin-top:6px">
+    <span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">curl 127.0.0.1:8080/vaults | jq</span>
+    <span class="dim"> headless API enabled</span>
+    <span class="blink">_</span>
+  </div>
+</div>
