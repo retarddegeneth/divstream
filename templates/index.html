@@ -95,8 +95,14 @@ th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;le
     </div>
     <form method="post" action="/" style="margin-top:14px" id="vaultForm">
       <div class="input-row">
-        <input class="input" name="symbol" placeholder="Symbol — AAPL, KO, NVDA" required maxlength="12"/>
-        <input class="input" name="token_address" placeholder="Token address 0x..." required/>
+        <select class="input" id="tokenSelect" name="symbol" required style="appearance:none">
+          <option value="" disabled selected>Select stock token</option>
+          {% for sym, addr in token_map.items() %}
+            <option value="{{ sym }}" data-addr="{{ addr }}">{{ sym }}</option>
+          {% endfor %}
+          <option value="__custom__">Other (custom)</option>
+        </select>
+        <input class="input" name="token_address" id="tokenAddress" placeholder="Token address 0x..." required/>
         <select class="input" name="mode" style="appearance:none">
           <option value="cash">Cash</option>
           <option value="reinvest">Reinvest</option>
@@ -106,6 +112,21 @@ th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;le
         <button type="submit">Create vault</button>
       </div>
     </form>
+    <script>
+    const tokenSelect = document.getElementById('tokenSelect');
+    const tokenAddress = document.getElementById('tokenAddress');
+    const tokenMap = {{ token_map | tojson }};
+    tokenSelect.addEventListener('change', () => {
+      const opt = tokenSelect.options[tokenSelect.selectedIndex];
+      if (tokenSelect.value === '__custom__') {
+        tokenAddress.value = '';
+        tokenAddress.removeAttribute('readonly');
+      } else {
+        tokenAddress.value = opt.dataset.addr || '';
+        tokenAddress.setAttribute('readonly', 'readonly');
+      }
+    });
+    </script>
   </div>
 
   <div class="card">
