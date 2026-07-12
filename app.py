@@ -3,6 +3,8 @@ import sqlite3, os, json, math
 from datetime import datetime
 from flask import Flask, g, render_template, request, jsonify
 
+HOST = os.environ.get("HOST", "0.0.0.0")
+PORT = int(os.environ.get("PORT", 8080))
 app = Flask(__name__)
 app.secret_key = "div-router-leaderboard"
 DB_PATH = os.path.join(app.root_path, "div.db")
@@ -185,4 +187,4 @@ def health():
     return jsonify({"status": "ok", "time": datetime.now().isoformat()})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    app.run(host=HOST, port=PORT, debug=False)
