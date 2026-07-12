@@ -3,156 +3,212 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <style>
-:root{--bg:#030506;--panel:#0a0f0d;--accent:#CCFF00;--accent2:#E0FF70;--muted:#6e8a20;--text:#d4f0a0;--border:#2a4510;--err:#ff4d6a;--warn:#f2b518;--ok:#3fb950;}
+:root{--bg:#030506;--panel:#0a0f0d;--accent:#CCFF00;--accent2:#E0FF70;--muted:#6e8a20;--text:#d4f0a0;--border:#2a4510;--err:#ff4d6a;--warn:#f2b518;--ok:#3fb950;--glass:rgba(10,15,13,.85);}
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:"Courier New",Courier,monospace;font-size:15px;line-height:1.55}
-.wrap{max-width:1140px;margin:0 auto;padding:22px}
-.term{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:14px;position:relative;box-shadow:0 0 0 1px #0f1f18 inset}
-.term::before{content:"";position:absolute;top:0;left:0;right:0;height:28px;background:#0e1a16;border-bottom:1px solid var(--border);border-radius:8px 8px 0 0}
-.term::after{content:"● ● ●";position:absolute;top:5px;left:12px;color:#2a5a4a;font-size:11px;letter-spacing:2px}
-.brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.brand img{height:44px;width:44px;image-rendering:pixelated;filter:drop-shadow(0 0 8px rgba(204,255,0,.45))}
-.prompt{color:var(--accent);font-weight:700}
-.cmd{color:var(--accent2)}
-.bright{color:#fff;text-shadow:0 0 6px rgba(204,255,0,.25)}
-.dim{color:var(--muted)}
-.err{color:var(--err)}
-.warn{color:var(--warn)}
-.ok{color:var(--ok)}
-a{color:var(--accent2);text-decoration:underline}
-.grid{display:grid;grid-template-columns:1fr;gap:14px}
-@media(min-width:960px){.grid{grid-template-columns:380px 1fr}}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px}
-.banner{background:#0a1f08;border:1px solid #3f6a1a;border-radius:10px;padding:14px;margin-bottom:16px;color:var(--text)}
-.banner .ascii{color:var(--accent);font-weight:700;white-space:pre;font-size:12px;line-height:1.2}
-label{display:block;font-size:12px;color:var(--muted);margin:6px 0 4px;text-transform:uppercase;letter-spacing:.15em}
-input[type=text],input[type=url],input[type=number],input[type=date],input[type=datetime-local]{width:100%;background:#050a08;color:var(--accent2);border:1px solid var(--border);border-radius:6px;padding:9px 10px;font-family:inherit;font-size:13px}
-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(204,255,0,.15)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-button{background:#102a06;color:var(--accent);border:1px solid #3f6a2a;border-radius:8px;padding:9px 14px;font-family:inherit;font-weight:800;cursor:pointer;margin-top:12px;text-transform:uppercase;letter-spacing:.12em}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:24px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border)}
+.nav a{color:var(--accent2);text-decoration:none;font-weight:600;font-size:14px;letter-spacing:.02em}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:36px;width:36px;image-rendering:pixelated;filter:drop-shadow(0 0 6px rgba(204,255,0,.5))}
+h1{font-size:28px;margin:0;color:var(--accent);letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:14px}
+.hero{background:linear-gradient(180deg,#081f08 0%,#050a08 100%);border:1px solid var(--border);border-radius:16px;padding:32px;margin:24px 0;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-50%;left:-20%;width:140%;height:200%;background:radial-gradient(circle at 50% 80%,rgba(204,255,0,.12),transparent 60%);pointer-events:none}
+.badge{display:inline-block;background:#102a06;border:1px solid #3f6a2a;color:var(--accent);padding:4px 10px;border-radius:999px;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.grid-3{display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0}
+@media(min-width:960px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px;transition:transform .15s ease,box-shadow .15s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.35),0 0 0 1px var(--border)}
+.card h3{color:var(--accent);margin:0 0 8px;font-size:16px}
+.card p{color:#a8c890;margin:0;font-size:14px}
+.card .num{color:#fff;font-size:32px;font-weight:800;letter-spacing:-.02em}
+.input-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.input{background:#050a08;color:var(--accent2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;min-width:180px;flex:1}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(204,255,0,.15)}
+button{background:#102a06;color:var(--accent);border:1px solid #3f6a2a;border-radius:10px;padding:10px 14px;font-family:inherit;font-weight:700;cursor:pointer;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
 button:hover{background:#1a3a10;box-shadow:0 0 0 2px rgba(204,255,0,.25)}
 button.sec{background:#1a1510;color:var(--warn);border-color:#3f2f10}
 button.sec:hover{background:#2a2010}
 table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
-th,td{text-align:left;padding:9px 6px;border-bottom:1px solid #2a4510}
-th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.15em}
-.rank{font-weight:900;color:var(--accent);font-size:18px;min-width:26px;text-align:center;text-shadow:0 0 6px rgba(204,255,0,.35)}
-.pill{display:inline-block;background:#102a06;border:1px solid #3f6a2a;color:var(--accent);padding:2px 8px;border-radius:999px;font-size:11px;letter-spacing:.1em}
-.blink{animation:blink 1s step-end infinite}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #2a4510}
+th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+.pill{display:inline-block;background:#102a06;border:1px solid #3f6a2a;color:var(--accent);padding:3px 10px;border-radius:999px;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.status-paid{color:#fff;text-shadow:0 0 6px rgba(204,255,0,.35)}
+.status-pending{color:var(--warn)}
+.blink{animation:blink 1.4s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 </style>
 <div class="wrap">
-  <div class="brand">
-    <img src="/static/div-logo.svg" alt="DivRouter"/>
-    <div>
-      <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">neofetch</span></div>
-      <div class="dim" style="font-size:12px">dividend_stream // robinhood_chain // 4663</div>
-    </div>
-  </div>
-
-  <div class="banner">
-    <div class="ascii">
- ██████╗ ██╗██████╗ ██╗   ██╗████████╗██╗   ██╗
-██╔════╝██║██╔══██╗██║   ██║╚══██╔══╝██║   ██║
-██║     ██║██████╔╝██║   ██║   ██║   ██║   ██║
-██║     ██║██╔══██╗██║   ██║   ██║   ██║   ██║
-╚██████╗██║██║  ██║╚██████╔╝   ██║   ╚██████╔╝
- ╚═════╝╚═╝╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ 
-    </div>
-    <div style="margin-top:10px">
-      <span class="bright">>> DIVIDENDS ONCHAIN. INSTANT. 24/7.</span> <span class="blink">_</span>
-    </div>
-    <div class="dim" style="margin-top:6px">stream dividends from tokenized stocks directly to your wallet.</div>
-    <div style="margin-top:8px">
-      <span class="pill">network: robinhood_chain</span>
-      <span class="pill">chain_id: 4663</span>
-      <span class="pill">v:0.1.0</span>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div>
-      <div class="card">
-        <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">create_vault</span></div>
-        <form method="post" action="/" style="margin-top:12px" id="vaultForm">
-          <label>symbol</label>
-          <input name="symbol" placeholder="AAPL, KO, NVDA..." required maxlength="12"/>
-          <label style="margin-top:10px">token address</label>
-          <input name="token_address" placeholder="0x..." required/>
-          <label style="margin-top:10px">mode</label>
-          <select name="mode" style="width:100%;background:#050a08;color:var(--accent2);border:1px solid var(--border);border-radius:6px;padding:9px 10px;font-family:inherit;font-size:13px">
-            <option value="cash">cash — stablecoin to wallet</option>
-            <option value="reinvest">reinvest — buy more token</option>
-            <option value="hedge">hedge — partial conversion</option>
-          </select>
-          <label style="margin-top:10px">shares</label>
-          <input type="number" step="0.0001" name="shares" value="1" min="0.0001"/>
-          <button type="submit">[ open vault ]</button>
-        </form>
+  <div class="nav">
+    <div class="brand">
+      <img src="/static/div-logo.svg" alt="div-router"/>
+      <div>
+        <div style="font-weight:800;color:#fff;letter-spacing:-.01em">div-router</div>
+        <div class="sub">Robinhood Chain • 4663</div>
       </div>
     </div>
+    <div style="display:flex;gap:14px">
+      <span class="badge">rwa</span>
+      <span class="badge">live</span>
+    </div>
+  </div>
 
+  <div class="hero">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="sub" style="letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px">Real-World Asset Yield</div>
+        <h1 style="font-size:34px;color:#fff">Dividend streaming<br/>for tokenized stocks</h1>
+        <div style="color:#a8c890;margin-top:10px;max-width:560px">Stream dividends from Robinhood Chain stock tokens straight to your wallet. Cash out, reinvest, or hedge — onchain, in real time.</div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <span class="pill">AAPL • KO • NVDA</span>
+          <span class="pill">cash / reinvest / hedge</span>
+          <span class="pill">chainlink oracles</span>
+        </div>
+      </div>
+      <div style="text-align:right" class="blink">
+        <div class="sub">next dividend event</div>
+        <div style="color:#fff;font-size:20px;font-weight:800">AAPL</div>
+        <div style="color:var(--accent)">2026-07-14</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3">
     <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">vaults --all</span></div>
-        <span class="dim" style="font-size:12px">live positions</span>
-      </div>
-      <table>
-        <thead>
-          <tr><th style="width:40px">#</th><th>symbol</th><th>token</th><th>mode</th><th>shares</th><th></th></tr>
-        </thead>
-        <tbody>
-        {% for v in vaults %}
-          <tr>
-            <td class="rank">{{ loop.index }}</td>
-            <td><b>{{ v.symbol }}</b></td>
-            <td class="dim">{{ v.token_address[:8] }}...{{ v.token_address[-4:] }}</td>
-            <td><span class="pill">{{ v.mode }}</span></td>
-            <td>{{ "%.4f"|format(v.shares) }}</td>
-            <td>
-              <form method="post" action="/events" style="margin:0" onsubmit="event.preventDefault(); const s=document.getElementById('ev-sym').value; fetch('/events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbol:s,ex_date:document.getElementById('ev-ex').value,pay_date:document.getElementById('ev-pay').value,amount_per_share:document.getElementById('ev-amt').value})}).then(()=>location.reload())">
-                <input type="hidden" id="ev-sym" value="{{ v.symbol }}"/>
-                <input type="date" id="ev-ex" placeholder="ex-date" style="width:130px;margin-right:4px"/>
-                <input type="date" id="ev-pay" placeholder="pay-date" style="width:130px;margin-right:4px"/>
-                <input type="number" step="0.0001" id="ev-amt" placeholder="amount" style="width:90px;margin-right:4px"/>
-                <button type="submit" class="sec" style="padding:5px 9px;font-size:11px">[ book ]</button>
-              </form>
-            </td>
-          </tr>
-        {% else %}
-          <tr><td colspan="6" class="dim" style="text-align:center;padding:18px">no vaults yet. create one above.</td></tr>
-        {% endfor %}
-        </tbody>
-      </table>
+      <div class="num">24/7</div>
+      <h3>Always-on settlement</h3>
+      <p>Dividends don’t wait for T+2. Claims are available the moment the Chainlink payout date triggers.</p>
+    </div>
+    <div class="card">
+      <div class="num">0</div>
+      <h3>No broker middleman</h3>
+      <p>Direct routing from dividend event to holder. No broker queue, no minimum balance, no delay.</p>
+    </div>
+    <div class="card">
+      <div class="num">3</div>
+      <h3>Built-in modes</h3>
+      <p><b style="color:#fff">Cash</b> stablecoins, <b style="color:#fff">Reinvest</b> buy more tokens, or <b style="color:#fff">Hedge</b> partial conversion for dividend drag protection.</p>
     </div>
   </div>
 
   <div class="card">
-    <div class="termline"><span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">calendar</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="sub" style="text-transform:uppercase;letter-spacing:.12em">Create Vault</div>
+        <div style="font-size:18px;color:#fff;font-weight:700">Deposit stock tokens, route future dividends</div>
+      </div>
+    </div>
+    <form method="post" action="/" style="margin-top:14px" id="vaultForm">
+      <div class="input-row">
+        <input class="input" name="symbol" placeholder="Symbol — AAPL, KO, NVDA" required maxlength="12"/>
+        <input class="input" name="token_address" placeholder="Token address 0x..." required/>
+        <select class="input" name="mode" style="appearance:none">
+          <option value="cash">Cash</option>
+          <option value="reinvest">Reinvest</option>
+          <option value="hedge">Hedge</option>
+        </select>
+        <input class="input" type="number" step="0.0001" name="shares" value="1" min="0.0001" placeholder="Shares"/>
+        <button type="submit">Create vault</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="sub" style="text-transform:uppercase;letter-spacing:.12em">Vaults</div>
+        <div style="font-size:18px;color:#fff;font-weight:700">Active positions</div>
+      </div>
+    </div>
     <table>
       <thead>
-        <tr><th>date</th><th>symbol</th><th>ex</th><th>pay</th><th>$/sh</th><th>status</th></tr>
+        <tr><th>#</th><th>Symbol</th><th>Token</th><th>Mode</th><th>Shares</th><th></th></tr>
       </thead>
       <tbody>
-      {% for e in events %}
+      {% for v in vaults %}
         <tr>
-          <td class="dim">{{ e.ex_date }}</td>
-          <td><b>{{ e.symbol }}</b></td>
-          <td>{{ e.ex_date }}</td>
-          <td>{{ e.pay_date }}</td>
-          <td>{{ "%.2f"|format(e.amount_per_share) }}</td>
-          <td><span class="pill">{{ e.status }}</span></td>
+          <td style="color:#fff;font-weight:800">{{ loop.index }}</td>
+          <td style="color:#fff;font-weight:800">{{ v.symbol }}</td>
+          <td class="sub">{{ v.token_address[:8] }}...{{ v.token_address[-4:] }}</td>
+          <td><span class="pill">{{ v.mode }}</span></td>
+          <td style="color:#fff">{{ "%.4f"|format(v.shares) }}</td>
+          <td>
+            <form method="post" action="/events" style="margin:0;display:flex;gap:6px;flex-wrap:wrap" onsubmit="event.preventDefault(); const s=document.getElementById('ev-sym').value; fetch('/events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbol:s,ex_date:document.getElementById('ev-ex').value,pay_date:document.getElementById('ev-pay').value,amount_per_share:document.getElementById('ev-amt').value})}).then(()=>location.reload())">
+              <input type="hidden" id="ev-sym" value="{{ v.symbol }}"/>
+              <input type="date" id="ev-ex" class="input" placeholder="ex-date" style="min-width:120px"/>
+              <input type="date" id="ev-pay" class="input" placeholder="pay-date" style="min-width:120px"/>
+              <input type="number" step="0.0001" id="ev-amt" class="input" placeholder="$/share" style="min-width:90px"/>
+              <button type="submit" class="sec" style="padding:8px 10px">Book</button>
+            </form>
+          </td>
         </tr>
       {% else %}
-        <tr><td colspan="6" class="dim" style="text-align:center;padding:18px">no dividend events scheduled.</td></tr>
+        <tr><td colspan="6" style="text-align:center;padding:18px;color:var(--muted)">No vaults yet. Create one above.</td></tr>
       {% endfor %}
       </tbody>
     </table>
   </div>
 
-  <div class="termline" style="margin-top:6px">
-    <span class="prompt">guest@div-router</span><span class="dim">:</span><span class="bright">~</span><span class="dim">$</span> <span class="cmd">curl 127.0.0.1:8080/vaults | jq</span>
-    <span class="dim"> headless API enabled</span>
-    <span class="blink">_</span>
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="sub" style="text-transform:uppercase;letter-spacing:.12em">Calendar</div>
+        <div style="font-size:18px;color:#fff;font-weight:700">Dividend schedule</div>
+      </div>
+      <div class="sub">Auto pulls Chainlink + Functions</div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Ex</th><th>Pay</th><th>Symbol</th><th>$/Sh</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+      {% for e in events %}
+        <tr>
+          <td class="sub">{{ e.ex_date }}</td>
+          <td class="sub">{{ e.pay_date }}</td>
+          <td style="color:#fff;font-weight:700">{{ e.symbol }}</td>
+          <td style="color:#fff">{{ "%.2f"|format(e.amount_per_share) }}</td>
+          <td><span class="pill {{ 'status-paid' if e.status=='paid' else 'status-pending' }}">{{ e.status }}</span></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">No dividend events scheduled.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div class="sub" style="text-transform:uppercase;letter-spacing:.12em">Payouts</div>
+        <div style="font-size:18px;color:#fff;font-weight:700">Manual ledger</div>
+      </div>
+      <div class="sub">Offline — you book payouts</div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Symbol</th><th>Amount USD</th><th>Mode</th><th>TX</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+      {% for p in payouts %}
+        <tr>
+          <td class="sub">{{ p.created_at }}</td>
+          <td style="color:#fff">{{ p.symbol }}</td>
+          <td style="color:#fff">{{ "%.2f"|format(p.amount_usd) }}</td>
+          <td><span class="pill">{{ p.mode }}</span></td>
+          <td class="sub">{{ p.tx_hash[:10] }}...{{ p.tx_hash[-4:] if p.tx_hash else '—' }}</td>
+          <td><span class="pill {{ 'status-paid' if p.status=='paid' else 'status-pending' }}">{{ p.status }}</span></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6" style="text-align:center;padding:18px;color:var(--muted)">No payouts yet.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 0;color:var(--muted);font-size:12px">
+    <span>headless API enabled <b style="color:#fff">:8080</b></span>
+    <span style="color:var(--accent)">/vaults /events /payouts</span>
   </div>
 </div>
