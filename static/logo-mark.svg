@@ -1,0 +1,10 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="150" height="150" fill="#030506"/>
+<g>
+<!-- abstract flowing dividend mark -->
+<path d="M30 100 Q45 60 75 60 Q105 60 120 100" stroke="#CCFF00" stroke-width="18" stroke-linecap="round" fill="none"/>
+<circle cx="75" cy="60" r="18" fill="#CCFF00" opacity=".95"/>
+<circle cx="30" cy="100" r="12" fill="#CCFF00" opacity=".7"/>
+<circle cx="120" cy="100" r="12" fill="#CCFF00" opacity=".7"/>
+</g>
+</svg>

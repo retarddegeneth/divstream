@@ -1,6 +1,6 @@
-# div-router
+# DivStream
 
-Robinhood Chain dividend streaming protocol. never been done before.
+Real-World Asset dividend streaming on Robinhood Chain.
 
 ## network
 robinhood_chain // chain_id: 4663
