@@ -5,6 +5,10 @@ Real-World Asset dividend streaming on Robinhood Chain.
 ## network
 robinhood_chain // chain_id: 4663
 
+## links
+https://divstream-production.up.railway.app/
+https://x.com/divstreamrh
+
 ## mode
 headless API + terminal UI on flask :8080
 
