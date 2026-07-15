@@ -28,11 +28,8 @@ python app.py
 
 ## modes
 cash — stablecoin to wallet
-reinvest — buy more token via uniswap v3
+reinvest — accumulate positions
 hedge — partial conversion to stablecoin
-
-## contract
-contracts/DividendVault.sol — erc4626-style shares + dividend routing
 
 ## payout policy
 manual daily for top vaults. admin books payouts JSON or onchain tx hash.

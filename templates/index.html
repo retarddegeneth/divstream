@@ -84,7 +84,7 @@ th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;le
     <div class="card">
       <div class="num">3</div>
       <h3>Built-in modes</h3>
-      <p><b style="color:#fff">Cash</b> stablecoins, <b style="color:#fff">Reinvest</b> buy more tokens, or <b style="color:#fff">Hedge</b> partial conversion for dividend drag protection.</p>
+      <p><b style="color:#fff">Cash</b> stablecoins, <b style="color:#fff">Reinvest</b> accumulate positions, or <b style="color:#fff">Hedge</b> partial conversion for dividend drag protection.</p>
     </div>
   </div>
 
@@ -100,7 +100,7 @@ th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;le
         <select class="input" id="tokenSelect" name="symbol" required style="appearance:none">
           <option value="" disabled selected>Select stock token</option>
           {% for sym, addr in token_map.items() %}
-            <option value="{{ sym }}" data-addr="{{ addr }}">{{ sym }}</option>
+            <option value="{{ sym }}">{{ sym }}</option>
           {% endfor %}
           <option value="__custom__">Other (custom)</option>
         </select>
@@ -117,14 +117,12 @@ th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;le
     <script>
     const tokenSelect = document.getElementById('tokenSelect');
     const tokenAddress = document.getElementById('tokenAddress');
-    const tokenMap = {{ token_map | tojson }};
     tokenSelect.addEventListener('change', () => {
-      const opt = tokenSelect.options[tokenSelect.selectedIndex];
       if (tokenSelect.value === '__custom__') {
         tokenAddress.value = '';
         tokenAddress.removeAttribute('readonly');
       } else {
-        tokenAddress.value = opt.dataset.addr || '';
+        tokenAddress.value = '';
         tokenAddress.setAttribute('readonly', 'readonly');
       }
     });
@@ -140,14 +138,13 @@ th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;le
     </div>
     <table>
       <thead>
-        <tr><th>#</th><th>Symbol</th><th>Token</th><th>Mode</th><th>Shares</th><th></th></tr>
+        <tr><th>#</th><th>Symbol</th><th>Mode</th><th>Shares</th><th></th></tr>
       </thead>
       <tbody>
       {% for v in vaults %}
         <tr>
           <td style="color:#fff;font-weight:800">{{ loop.index }}</td>
           <td style="color:#fff;font-weight:800">{{ v.symbol }}</td>
-          <td class="sub">{{ v.token_address[:8] }}...{{ v.token_address[-4:] }}</td>
           <td><span class="pill">{{ v.mode }}</span></td>
           <td style="color:#fff">{{ "%.4f"|format(v.shares) }}</td>
           <td>
@@ -161,7 +158,7 @@ th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;le
           </td>
         </tr>
       {% else %}
-        <tr><td colspan="6" style="text-align:center;padding:18px;color:var(--muted)">No vaults yet. Create one above.</td></tr>
+        <tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">No vaults yet. Create one above.</td></tr>
       {% endfor %}
       </tbody>
     </table>
